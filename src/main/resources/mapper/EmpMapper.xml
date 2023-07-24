@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jeffnalex.mapper.EmpMapper">
+    <select id="pageQuery" resultType="com.jeffnalex.entity.Employee">
+        select *
+        from emp
+        <where>
+            <if test="name != null and name != ''">name like concat('%',#{name},'%') </if>
+            <if test="gender != null">
+                and gender = #{gender}
+            </if>
+            <if test="begin != null and end != null">
+                and entry_date between #{begin} and #{end}
+            </if>
+        </where>
+    </select>
+
+    <delete id="delete">
+        delete from emp where id in
+            <foreach collection="ids" open="(" close=")" item="id" separator=",">
+                #{id}
+            </foreach>
+    </delete>
+    <update id="update">
+        update emp
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="username != null">username = #{username},</if>
+            <if test="job != null">job = #{job},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="update_time != null">update_time = #{update_time},</if>
+            <if test="update_user != null">update_user = #{update_user}</if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,34 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/rappers
+    username: root
+    password: jeff851006
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/musicCommentDB
+
+
+logging:
+  level:
+    org.apache.ibatis: DEBUG
+  console:
+    enabled: true
+
+mybatis:
+  #mapper????
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.jeffnalex.entity
+
+# springdoc-openapi项目配置
+spring-doc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.xiaominfo.knife4j.demo.web
